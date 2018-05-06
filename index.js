@@ -1,21 +1,29 @@
 const express = require('express');
 require('dotenv').config();
+const InfluxDBClient = require('./db');
 
 const app = express();
+
+const influxClient = new InfluxDBClient();
+
+influxClient.connect();
+
+console.log(influxClient.connected)
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
 app.get('/track.mp3', (req, res) => {
-  console.log('Incoming download recorded');
-  console.dir(req);
-  const ip = req.headers['x-forwarded-for']|| 
+  const ipAddress = req.headers['x-forwarded-for']|| 
          req.connection.remoteAddress || 
          req.socket.remoteAddress || 
          req.connection.socket.remoteAddress;
-  console.log(`request IP: ${ip}`);
-  if (req.query.podcastURL) {
-    return res.redirect(301, `https://${req.query.podcastURL}`);
+  console.log(`request IP: ${ipAddress}`);
+  if (req.query.target) {
+    influxClient.recordDownload(ipAddress, req.headers['user-agent'], req.query.podcastURL, req.headers )
+    console.log('Incoming download recorded');
+    return res.redirect(301, `https://${req.query.target}`);
   }
+  console.log('invalid request');
   return res.status(400).send('invalid or no podcast URL provided');
 });
 
