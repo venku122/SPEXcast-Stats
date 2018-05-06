@@ -21,6 +21,7 @@ app.get('/track.mp3', (req, res) => {
   if (req.query.target) {
     influxClient.recordDownload(ipAddress, req.headers['user-agent'], req.query.podcastURL, req.headers )
     console.log('Incoming download recorded');
+    console.dir(req);
     return res.redirect(301, `https://${req.query.target}`);
   }
   console.log('invalid request');
