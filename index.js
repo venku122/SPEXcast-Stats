@@ -19,7 +19,7 @@ app.get('/track.mp3', (req, res) => {
          req.connection.socket.remoteAddress;
   console.log(`request IP: ${ipAddress}`);
   if (req.query.target) {
-    influxClient.recordDownload(ipAddress, req.headers['user-agent'], req.query.podcastURL, req.headers )
+    influxClient.recordDownload(ipAddress, req.headers['user-agent'], req.query.target, req.headers )
     console.log('Incoming download recorded');
     // console.dir(req);
     return res.redirect(301, `https://${req.query.target}`);
