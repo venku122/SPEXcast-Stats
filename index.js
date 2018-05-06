@@ -8,7 +8,7 @@ const influxClient = new InfluxDBClient();
 
 influxClient.connect();
 
-console.log(influxClient.connected)
+console.log(`InfluxDB client connected: ${influxClient.connected}`)
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
