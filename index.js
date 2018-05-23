@@ -17,11 +17,12 @@ app.get('/track.mp3', (req, res) => {
          req.connection.remoteAddress || 
          req.socket.remoteAddress || 
          req.connection.socket.remoteAddress;
+  let deviceType = 'generic';
+  let source = 'unknown';
   if (req.query.target) {
     if (req.headers['user-agent']) {
       const userAgent = req.headers['user-agent'];
-      let deviceType = 'generic';
-      let source = 'unknown';
+
       userAgent.toLowerCase().split(' ').map(word => {
         switch (word) {
           case 'windows':
