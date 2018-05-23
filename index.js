@@ -60,7 +60,7 @@ app.get('/track.mp3', (req, res) => {
         Mozilla/5.0 (Linux; Android 7.1.1; XT1650 Build/NCLS26.118-23-13-6-1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.158 Mobile Safari/537.36
         */    
     }
-    influxClient.recordDownload(ipAddress, req.headers['user-agent'], req.query.target, req.headers, source, devicetype )
+    influxClient.recordDownload(ipAddress, req.headers['user-agent'], req.query.target, req.headers, source, deviceType )
     console.log(`Incoming download recorded ipAddress: ${ipAddress} user-agent: ${req.headers['user-agent']} targetURL: ${req.query.target} source: ${source} deviceType: ${devicetype}`);
     return res.redirect(301, `https://${req.query.target}`);
   }
