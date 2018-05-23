@@ -17,7 +17,6 @@ app.get('/track.mp3', (req, res) => {
          req.connection.remoteAddress || 
          req.socket.remoteAddress || 
          req.connection.socket.remoteAddress;
-  console.log(`request IP: ${ipAddress}`);
   if (req.query.target) {
     if (req.headers['user-agent']) {
       const userAgent = req.headers['user-agent'];
@@ -61,9 +60,7 @@ app.get('/track.mp3', (req, res) => {
         */    
     }
     influxClient.recordDownload(ipAddress, req.headers['user-agent'], req.query.target, req.headers, source, devicetype )
-    console.lo
-    g('Incoming download recorded');
-    // console.dir(req);
+    console.log(`Incoming download recorded ipAddress: ${ipAddress} user-agent: ${req.headers['user-agent']} targetURL: ${req.query.target} source: ${source} deviceType: ${devicetype}`);
     return res.redirect(301, `https://${req.query.target}`);
   }
   console.log('invalid request');
