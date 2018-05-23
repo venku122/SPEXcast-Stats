@@ -40,7 +40,7 @@ class InfluxDBClient {
 
   disconnect() {}
 
-  async recordDownload(ipAddress, referrer, url, headers, source, devicetype) {
+  async recordDownload(ipAddress, referrer, url, headers, source, deviceType) {
     this.influx.writePoints([
       {
         measurement: 'requests',
